@@ -1,0 +1,12 @@
+services:
+  tarpit:
+    build: .
+    container_name: tarpit
+    tty: true
+    #volumes:
+    #  - ./config:/app/config
+    #  - ./assets:/app/assets
+    #environment:
+    #  - TZ= # specify a timezone to use when logging requests
+    ports:
+      - 80:80

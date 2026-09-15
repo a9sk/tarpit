@@ -1,0 +1,25 @@
+{
+  "port": 80,
+  "random-seed": 12345,
+  "document-root": "/",
+
+  "fake-image-dir": ["images"],
+  "fake-css-dir": ["css"],
+
+  "spacing-characters": ["_","-","%20"],
+  "unsafe-characters": ["'","`"],
+
+  "robots-txt": "assets/robots.txt",
+  "html-templates": ["assets/template.html"],
+  "css-files": ["assets/style.css"],
+  "images": {
+    "ico":["assets/logo.ico"],
+    "jpg":["assets/logo.jpg"],
+    "png":["assets/logo.png"]
+  },
+
+  "remove-from-stop-words":[
+    "ll","s","t","don","d","m","o","re","ve","y","ain","aren","couldn","didn","doesn","hadn","hasn","haven",
+    "isn","ma","mightn","needn","shan","shouldn","wasn","weren","won","wouldn"
+  ]
+}
