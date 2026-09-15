@@ -10,55 +10,48 @@
     <meta property="og:image" content="{PIC}.png">
 </head>
 <body>
-    <nav id="{WORD}" class="header navbar">
-        <div><a href="{HOME}">Home</a></div>
-        <div><a href="{UP}">Back</a></div>
-        <div><a href="{OVER}">{NEWTITLE}</a></div>
-        <div><a href="{OVER}">{NEWTITLE}</a></div>
-        <div id="nav-break"></div>
-        <div><a href="{LINK}">{NEWTITLE}</a></div>
-        <div><a href="{LINK}">{NEWTITLE}</a></div>
-        <div><a href="{LINK}">{NEWTITLE}</a></div>
-        <div><a href="{LINK}">{NEWTITLE}</a></div>
-        <div><a href="{LINK}">{NEWTITLE}</a></div>
-    </nav>
-    <div id="{WORD}">
-        <header>
-            <h1 id="article-title" class="styling scrollable">
-                {TITLE}
-            </h1>
-        </header>
-    </div>
+    <div id="content">
+        <nav id="{WORD}">
+            <a href="{HOME}">Home</a> |
+            <a href="{UP}">Back</a> |
+            <a href="{OVER}">{NEWTITLE}</a> |
+            <a href="{OVER}">{NEWTITLE}</a> |
+            <a href="{LINK}">{NEWTITLE}</a> |
+            <a href="{LINK}">{NEWTITLE}</a> |
+            <a href="{LINK}">{NEWTITLE}</a> |
+            <a href="{LINK}">{NEWTITLE}</a> |
+            <a href="{LINK}">{NEWTITLE}</a>
+        </nav>
 
-    <div id="image-rail-neoj">
+        <header>
+            <h1 id="article-title">{TITLE}</h1>
+        </header>
+
         <figure>
-            <img src="{PIC}.jpg" alt="{SENTENCE}" class="pinch view" title="{SENTENCE}">
+            <video autoplay loop muted playsinline poster="{PIC}.jpg" title="{SENTENCE}">
+                <source src="{PIC}.mp4" type="video/mp4">
+            </video>
             <figcaption>{SENTENCE}</figcaption>
         </figure>
+
+        <main>
+            {MAIN}
+            <p>--</p>
+        </main>
+
+        <p>Written by Emiliano Rizzonelli</p>
+        <img id="author-profile" src="{PIC}.png" alt="{SENTENCE}">
+
+        <footer id="{WORD}">
+            <h2>Other Posts:</h2>
+            <div>
+                <a href="{LINK}">{NEWTITLE}</a>
+                <a href="{LINK}">{NEWTITLE}</a>
+                <a href="{LINK}">{NEWTITLE}</a>
+                <a href="{LINK}">{NEWTITLE}</a>
+                <a href="{LINK}">{NEWTITLE}</a>
+            </div>
+        </footer>
     </div>
-    
-
-    <main>
-        <div>
-        {MAIN}
-        </div>
-        <p>--</p>
-    </main>
-
-    <div><span>Written by {NAME}</span></div>
-    <img id="author-profile" src="{PIC}.png" alt="{SENTENCE}">
-
-    <footer id="{WORD}">
-        <h1>Other Posts:</h1>
-        <div class="{WORD}">
-            <div><a href="{LINK}">{NEWTITLE}</a></div>
-            <div><a href="{LINK}">{NEWTITLE}</a></div>
-            <div><a href="{LINK}">{NEWTITLE}</a></div>
-            <div><a href="{LINK}">{NEWTITLE}</a></div>
-            <div><a href="{LINK}">{NEWTITLE}</a></div>
-        </div>
-    </footer>
-
-
 </body>
 </html>
