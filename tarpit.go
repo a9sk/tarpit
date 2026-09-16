@@ -46,6 +46,8 @@ type Config struct {
 	CSSFiles            ListOrString `json:"css-files"`
 	Images              ImageConfig  `json:"images"`
 	RemoveFromStopWords []string     `json:"remove-from-stop-words"`
+	TLSCert             string       `json:"tls-cert"`
+	TLSKey              string       `json:"tls-key"`
 
 	docRoot *url.URL
 }
@@ -55,6 +57,7 @@ type ImageConfig struct {
 	ICO ListOrString `json:"ico"`
 	JPG ListOrString `json:"jpg"`
 	PNG ListOrString `json:"png"`
+	MP4 ListOrString `json:"mp4"`
 }
 
 // ListOrString is a config value that may be a single string, null, or a list of strings.
@@ -88,6 +91,8 @@ func (c *Config) NameByExt(ext string) ListOrString {
 		return c.Images.JPG
 	case "png":
 		return c.Images.PNG
+	case "mp4":
+		return c.Images.MP4
 	case "css":
 		return c.CSSFiles
 	}
@@ -639,6 +644,9 @@ func (h *Handler) serveFile(w http.ResponseWriter, r *http.Request, base string)
 	case strings.HasSuffix(base, ".png"):
 		contentType = "image/png"
 		ext = "png"
+	case strings.HasSuffix(base, ".mp4"):
+		contentType = "video/mp4"
+		ext = "mp4"
 	case strings.HasSuffix(base, ".css"):
 		contentType = "text/css"
 		ext = "css"
@@ -719,9 +727,16 @@ func main() {
 		}
 	}
 	addr := fmt.Sprintf(":%d", port)
-	logger.Info("listening", "port", port)
-	if err := http.ListenAndServe(addr, handler); err != nil {
-		logger.Error("server error", "error", err)
-		os.Exit(1)
+	logger.Info("listening", "port", port, "tls", cfg.TLSCert != "" && cfg.TLSKey != "")
+	if cfg.TLSCert != "" && cfg.TLSKey != "" {
+		if err := http.ListenAndServeTLS(addr, cfg.TLSCert, cfg.TLSKey, handler); err != nil {
+			logger.Error("server error", "error", err)
+			os.Exit(1)
+		}
+	} else {
+		if err := http.ListenAndServe(addr, handler); err != nil {
+			logger.Error("server error", "error", err)
+			os.Exit(1)
+		}
 	}
 }

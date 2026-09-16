@@ -10,8 +10,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o tarpit .
 FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/tarpit .
+COPY --from=builder /app/certs ./certs
 COPY --from=builder /app/config ./config
 COPY --from=builder /app/assets ./assets
 COPY --from=builder /app/data ./data
-EXPOSE 80
+EXPOSE 80 443
 ENTRYPOINT ["./tarpit"]

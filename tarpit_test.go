@@ -31,14 +31,17 @@ func testConfig(t *testing.T) *Config {
 
 func TestLoadConfig(t *testing.T) {
 	cfg := testConfig(t)
-	if cfg.Port != 80 {
-		t.Errorf("expected port 80, got %d", cfg.Port)
+	if cfg.Port != 443 {
+		t.Errorf("expected port 443, got %d", cfg.Port)
 	}
 	if cfg.RandomSeed != 12345 {
 		t.Errorf("expected random seed 12345, got %d", cfg.RandomSeed)
 	}
 	if cfg.DocRoot().Path != "/" {
 		t.Errorf("expected document root /, got %s", cfg.DocRoot().Path)
+	}
+	if cfg.TLSCert == "" || cfg.TLSKey == "" {
+		t.Errorf("expected TLS certificate and key to be configured")
 	}
 }
 

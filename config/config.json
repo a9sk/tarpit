@@ -1,7 +1,9 @@
 {
-  "port": 80,
+  "port": 443,
   "random-seed": 12345,
   "document-root": "/",
+  "tls-cert": "certs/localhost.crt",
+  "tls-key": "certs/localhost.key",
 
   "fake-image-dir": ["images"],
   "fake-css-dir": ["css"],
@@ -15,7 +17,8 @@
   "images": {
     "ico":["assets/logo.ico"],
     "jpg":["assets/logo.jpg"],
-    "png":["assets/logo.png"]
+    "png":["assets/logo.png"],
+    "mp4":["assets/ghost-message.mp4"]
   },
 
   "remove-from-stop-words":[

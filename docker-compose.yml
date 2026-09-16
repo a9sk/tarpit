@@ -9,4 +9,4 @@ services:
     #environment:
     #  - TZ= # specify a timezone to use when logging requests
     ports:
-      - 80:80
+      - 443:443

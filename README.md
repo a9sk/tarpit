@@ -28,6 +28,10 @@ go build .
 1. Copy or edit `config/config.json`.
    - Set `random-seed` to a non-zero value.
    - Change `port` if needed.
+   - To use HTTPS, set `tls-cert` and `tls-key`. Generate a self-signed `localhost` pair with:
+     ```bash
+     make certs
+     ```
 2. Run the server:
    ```bash
    ./tarpit
@@ -36,13 +40,15 @@ go build .
    ```bash
    PORT=8080 ./tarpit
    ```
-3. Open `http://localhost:<port>` in a browser or use `curl`.
+3. Open `http://localhost:<port>` (HTTP) or `https://localhost:<port>` (HTTPS) in a browser or use `curl`.
+   - With the generated self-signed certificate, browsers will show a security warning; accept or trust `certs/localhost.crt` to suppress it.
+   - On Linux, ports below 1024 (such as 80/443) require root or `CAP_NET_BIND_SERVICE`.
 
 ## Docker
 
 ```bash
 docker build -t tarpit:latest .
-docker run --tty --name tarpit -p "127.0.0.1:80:80" --rm tarpit:latest
+docker run --tty --name tarpit -p "127.0.0.1:443:443" --rm tarpit:latest
 ```
 
 Or with Docker Compose:
@@ -56,16 +62,17 @@ docker compose up
 Configuration follows the same `config/config.json` format as Pyison:
 
 - `port` — port to serve on.
+- `tls-cert` / `tls-key` — paths to a TLS certificate and key; when both are set the server serves HTTPS.
 - `random-seed` — global salt.
 - `document-root` — path prefix (useful for reverse-proxy sub-paths).
 - `fake-image-dir`, `fake-css-dir` — fake asset directory prefixes.
 - `spacing-characters`, `unsafe-characters` — URL word separators and chars to strip from URLs.
-- `robots-txt`, `html-templates`, `css-files`, `images` — asset paths.
+- `robots-txt`, `html-templates`, `css-files`, `images` — asset paths (images may include `ico`, `jpg`, `png`, and `mp4`).
 - `remove-from-stop-words` — stop words to exclude from generation.
 
 ## HTML Templating
 
-The same template tags from Pyison are supported: `{HOME}`, `{TITLE}`, `{UPTITLE}`, `{MAIN}`, `{UP}`, `{CSSLINK}`, `{WORD}`, `{NAME}`, `{SENTENCE}`, `{PIC}`, `{LINK}`, `{OVER}`, `{NEWTITLE}`.
+The same template tags from Pyison are supported: `{HOME}`, `{TITLE}`, `{UPTITLE}`, `{MAIN}`, `{UP}`, `{CSSLINK}`, `{WORD}`, `{NAME}`, `{SENTENCE}`, `{PIC}`, `{LINK}`, `{OVER}`, `{NEWTITLE}`. `{PIC}` generates a fake asset path; append the desired extension such as `.jpg`, `.png`, or `.mp4`.
 
 ## Testing
 
